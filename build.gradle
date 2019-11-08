@@ -3,7 +3,7 @@ plugins {
 	// Have to set apply to false since we don't want to apply this plugins to
 	// allprojects {} which includes the root project, we only want the modules
 	// or subprojects {}
-	// app/build.gradle applies these plugins
+	// pet-clinic-web/build.gradle and pet-clinic-data/build.gradle applies these plugins
 	id 'org.springframework.boot' version '2.2.1.RELEASE' apply false
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE' apply false
 }
