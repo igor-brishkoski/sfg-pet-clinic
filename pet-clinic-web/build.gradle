@@ -1,4 +1,3 @@
-
 // development only doesn't work without this
 configurations {
     developmentOnly

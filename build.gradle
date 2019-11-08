@@ -1,58 +1,11 @@
-//plugins {
-//	id 'org.springframework.boot' version '2.2.1.RELEASE'
-//	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-//	id 'java'
-//}
-//
-//group = 'brishko.com'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '1.8'
-//
-//configurations {
-//	developmentOnly
-//	runtimeClasspath {
-//		extendsFrom developmentOnly
-//	}
-//	compileOnly {
-//		extendsFrom annotationProcessor
-//	}
-//}
-//
-//repositories {
-//	mavenCentral()
-//}
-//
-//dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	compileOnly 'org.projectlombok:lombok'
-//	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	runtimeOnly 'com.h2database:h2'
-//	runtimeOnly 'mysql:mysql-connector-java'
-//	annotationProcessor 'org.projectlombok:lombok'
-//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-//		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-//	}
-//}
-//
-//test {
-//	useJUnitPlatform()
-//}
-
-buildscript {
-	ext {
-		springBootVersion = '2.2.1.RELEASE'
-	}
-
-	repositories {
-		gradlePluginPortal()
-	}
-
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-	}
+plugins {
+	id 'java'
+	// Have to set apply to false since we don't want to apply this plugins to
+	// allprojects {} which includes the root project, we only want the modules
+	// or subprojects {}
+	// app/build.gradle applies these plugins
+	id 'org.springframework.boot' version '2.2.1.RELEASE' apply false
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE' apply false
 }
 
 subprojects {
@@ -60,16 +13,11 @@ subprojects {
 	apply plugin: 'io.spring.dependency-management'
 	apply plugin: 'org.springframework.boot'
 
-	group = 'io.github.vpavic'
-	sourceCompatibility = JavaVersion.VERSION_1_8
+	group = 'brishko.com.sfgpetclinic'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = '1.8'
 
 	repositories {
 		mavenCentral()
-	}
-
-	dependencyManagement {
-		imports {
-			mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
-		}
 	}
 }
