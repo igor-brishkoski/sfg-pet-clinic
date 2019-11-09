@@ -25,22 +25,18 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         //region Owner Data
         Owner owner = new Owner();
-        owner.setId(1L);
         owner.setFirstName("John");
         owner.setLastName("Snow");
 
         Owner owner2 = new Owner();
-        owner2.setId(2L);
         owner2.setFirstName("Ed");
         owner2.setLastName("Stark");
 
         Owner owner3 = new Owner();
-        owner3.setId(3L);
         owner3.setFirstName("Arya");
         owner3.setLastName("Stark");
 
         Owner owner4 = new Owner();
-        owner4.setId(4L);
         owner4.setFirstName("Robert");
         owner4.setLastName("Baratheon");
 
@@ -54,17 +50,14 @@ public class DataLoader implements CommandLineRunner {
 
         //region Vet Data
         Vet vet = new Vet();
-        vet.setId(1L);
         vet.setFirstName("Jack");
         vet.setLastName("Sparrow");
 
         Vet vet2 = new Vet();
-        vet2.setId(2L);
         vet2.setFirstName("Tony");
         vet2.setLastName("Stark");
 
         Vet vet3 = new Vet();
-        vet3.setId(3L);
         vet3.setFirstName("Steve");
         vet3.setLastName("Rogers");
 
