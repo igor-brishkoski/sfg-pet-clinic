@@ -14,7 +14,7 @@ public class VetsController {
         this.vetService = vetService;
     }
 
-    @GetMapping(path = {"/vets", "vets/index", "vets/index.html"})
+    @GetMapping(path = {"/vets", "vets/index", "vets/index.html", "vets.html"})
     public String listVets(Model model) {
         model.addAttribute("vets", vetService.findAll());
         return "vets/index";
