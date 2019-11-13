@@ -1,11 +1,9 @@
 package brishko.com.sfgpetclinic.bootstrap;
 
-import brishko.com.sfgpetclinic.model.Owner;
-import brishko.com.sfgpetclinic.model.Pet;
-import brishko.com.sfgpetclinic.model.PetType;
-import brishko.com.sfgpetclinic.model.Vet;
+import brishko.com.sfgpetclinic.model.*;
 import brishko.com.sfgpetclinic.services.OwnerService;
 import brishko.com.sfgpetclinic.services.PetTypeService;
+import brishko.com.sfgpetclinic.services.SpecialtiesService;
 import brishko.com.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,15 +19,27 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialtiesService specialtiesService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(
+            OwnerService ownerService,
+            VetService vetService,
+            PetTypeService petTypeService,
+            SpecialtiesService specialtiesService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialtiesService = specialtiesService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        if(petTypeService.findAll().size() == 0) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         PetType dogType = new PetType();
         dogType.setName("Dog");
         petTypeService.save(dogType);
@@ -115,29 +125,51 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Saving Owners data...");
 
+        Specialty radiology = new Specialty();
+        radiology.setDescription("radiology");
+        specialtiesService.save(radiology);
+
+        Specialty surgery = new Specialty();
+        surgery.setDescription("surgery");
+        specialtiesService.save(surgery);
+
+        Specialty dentistry = new Specialty();
+        dentistry.setDescription("dentistry");
+        specialtiesService.save(dentistry);
+
         Vet vet = new Vet();
         vet.setFirstName("Jack");
         vet.setLastName("Sparrow");
+        vet.getSpecialties().add(radiology);
         vetService.save(vet);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Tony");
         vet2.setLastName("Stark");
+        vet2.getSpecialties().add(surgery);
         vetService.save(vet2);
 
         Vet vet3 = new Vet();
         vet3.setFirstName("Steve");
         vet3.setLastName("Rogers");
-
+        vet3.getSpecialties().add(dentistry);
         vetService.save(vet3);
 
         System.out.println("Saving Vets data...");
 
-        for (Owner o: ownerService.findAll()) {
-            System.out.print("Owner = "+o.getFirstName()+" "+o.getLastName());
+        for (Owner o : ownerService.findAll()) {
+            System.out.print("Owner = " + o.getFirstName() + " " + o.getLastName());
             System.out.print(" | Pets: ");
-            for (Pet p: o.getPets()) {
-                System.out.print(p.getPetType().getName()+" - "+p.getName()+" | ");
+            for (Pet p : o.getPets()) {
+                System.out.print(p.getPetType().getName() + " - " + p.getName() + " | ");
+            }
+            System.out.println();
+        }
+
+        for(Vet v: vetService.findAll()) {
+            System.out.print("Vet "+v.getFirstName() + " | specailties = ");
+            for(Specialty s: v.getSpecialties()) {
+                System.out.print(s.getDescription()+", ");
             }
             System.out.println();
         }
